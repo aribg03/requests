@@ -8,7 +8,23 @@ app.get('/:user/:password', (req, res) => {
         res.json({msg: 'Inicio de sesión exitoso'})
         return
     }
-    res.json({msg: 'Error en el usuario o la contraseña'})
+    res.status(404).json({msg: 'Error en el usuario o la contraseña'})
+})
+
+//http://localhost:3000/login?user=arizbeth&password=123
+app.get('/login',(req, res) => {//la combinacion de una ruta y su totalidad se denomina endpoint
+    const {user,password} = req.query
+    if (!user || !password){
+        res.status(400).json({
+            msg:'You need to provide <user> and <password> parameter'
+        })
+        return
+    }
+    if (user==='arizbeth' && password==='123'){
+        res.json({msg: 'Inicio de sesión exitoso'})
+        return
+    }
+    res.status(404).json({msg: 'Error en el usuario o la contraseña'})
 })
 
 app.post('/',(req, res) => {res.json({msg: 'Hola POST'})})
